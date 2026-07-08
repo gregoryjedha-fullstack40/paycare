@@ -34,6 +34,11 @@ jobs:
       - name: Show container logs
         run: docker logs paycare-service
 
+      - name: Install pytest and wait for 10 seconds
+        run: |
+          pip install pytest
+          sleep 10
+
       - name: Run tests using pytest
         run: pytest -v
 
