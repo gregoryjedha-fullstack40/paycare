@@ -1,7 +1,7 @@
 import pytest
-import .etl as etl
+import etl as e
 
 def test_extract():
     filepath = 'data/input_data.csv'
-    df = etl.extract_data(filepath)
+    df = e.extract_data(filepath)
     assert not df.empty
