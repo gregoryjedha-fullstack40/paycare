@@ -9,7 +9,7 @@ COPY . .
 
 # Install the Python dependencies
 RUN pip install -r requirements.txt
-RUN python3.9.25 -m pip install pytest
+RUN python -m pip install pytest
 
 # Make port 8070 available to the world outside this container
 EXPOSE 8070
