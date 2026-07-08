@@ -1,0 +1,36 @@
+name: Paycare Workflow
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10-slim"
+        
+      - name: Build docker image
+        run: docker build -t paycare .
+
+      - name: Build docker image
+        run: docker run -d -p 8070:8070 --name paycare paycare
+
+      - name: Show container logs
+        run: docker logs paycare
+
+      - name: Run tests using pytest
+        run: pytest -v
+
+      - name: Stop and remove container
+        run: docker stop paycare && docker rm paycare
+
