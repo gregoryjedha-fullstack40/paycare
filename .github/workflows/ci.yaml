@@ -20,17 +20,17 @@ jobs:
           python-version: "3.9.25"
         
       - name: Build docker image
-        run: docker build -t paycare .
+        run: docker build --build-arg PYTHON_VERSION=3.9.25 -t paycare .
 
       - name: Build docker image
-        run: docker run -d -p 8070:8070 --name paycare paycare
+        run: docker run -d -p 8070:8070 --name paycare-service paycare
 
       - name: Show container logs
-        run: docker logs paycare
+        run: docker logs paycare-service
 
       - name: Run tests using pytest
         run: pytest -v
 
       - name: Stop and remove container
-        run: docker stop paycare && docker rm paycare
+        run: docker stop paycare-service && docker rm paycare-service
 
